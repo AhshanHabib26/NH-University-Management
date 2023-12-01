@@ -6,7 +6,7 @@ import {
   StudentName,
 } from './student.interface';
 
-const userNameSchema = new Schema<StudentName>({
+const studentNameSchema = new Schema<StudentName>({
   firstName: {
     type: String,
     required: true,
@@ -72,10 +72,10 @@ const studentSchema = new Schema<Student>({
     required: true,
     unique: true,
   },
-  name: userNameSchema,
+  name: studentNameSchema,
   gender: {
     type: String,
-    enum: ['male', 'female'],
+    enum: ['male', 'female', 'other'],
   },
   dateOfBirth: { type: String },
   email: { type: String, required: true },
