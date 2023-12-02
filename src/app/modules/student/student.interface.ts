@@ -25,6 +25,7 @@ export type TLocalGuardian = {
 export type TStudent = {
   id: string;
   user: Types.ObjectId;
+  admissionSemester: Types.ObjectId;
   name: TStudentName;
   gender: 'male' | 'female' | 'other';
   dateOfBirth?: string;

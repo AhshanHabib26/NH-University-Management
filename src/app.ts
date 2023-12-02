@@ -5,6 +5,7 @@ import studentRouter from './app/modules/student/student.routes';
 import userRouter from './app/modules/user/user.routes';
 import errorHandler from './app/middlewares/errorHandler';
 import notFoundHandler from './app/utils/notFound';
+import academicSemesterRouter from './app/modules/academicSemester/academicSemester.router';
 
 // Middleware
 app.use(express.json());
@@ -20,6 +21,7 @@ app.get('/', (req: Request, res: Response) => {
 // APP API Call
 app.use("/api/v1/students", studentRouter)
 app.use('/api/v1/users', userRouter);
+app.use("/api/v1/academic", academicSemesterRouter)
 
 
 // Route NotFound Handler

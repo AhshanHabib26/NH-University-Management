@@ -1,7 +1,10 @@
+import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
+import { AcademicSemester } from '../academicSemester/academicSemester.schema';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.schema';
 import { TUser } from './user.interface';
 import { User } from './user.schema';
+import generateStudentId from './user.utils';
 
 const createUserWithStudent = async (
   password: string,
@@ -11,7 +14,13 @@ const createUserWithStudent = async (
 
   userData.password = password || (process.env.DEFULT_PASS as string);
   userData.role = 'student';
-  userData.id = '20230001';
+
+  // Find Academic Semester Info
+  const admissionSemester: any = await AcademicSemester.findById(
+    studentData.admissionSemester,
+  );
+
+  userData.id = await generateStudentId(admissionSemester);
 
   const result = await User.create(userData);
 
