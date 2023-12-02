@@ -1,30 +1,19 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { studentServices } from './student.services';
-import studentValidationSchema from './student.validation';
 
-const createStudent = async (req: Request, res: Response) => {
+const getAllStudent = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const student = req.body;
-    const dataValidation =  studentValidationSchema.parse(student)
-    const result = await studentServices.studentCreateService(dataValidation);
-
+    const result = await studentServices.getAllStudent();
     res.status(200).json({
       success: true,
-      message: 'Student created succesfully!',
+      message: 'Student fatched successfully!',
       data: result,
     });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Server Error',
-      error: {
-        code: 500,
-        description: error.message || 'Server Error',
-      },
-    });
+  } catch (error) {
+    next(error);
   }
 };
 
 export const studentController = {
-  createStudent,
+  getAllStudent,
 };

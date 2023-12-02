@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { z } from 'zod';
 
 
@@ -25,8 +26,11 @@ const localGuardianSchema = z.object({
 
 const studentValidationSchema = z.object({
   id: z.string({
-    required_error: "ID is required",
-    invalid_type_error: "ID must be a uniqe",
+    required_error: 'ID is required',
+    invalid_type_error: 'ID must be a uniqe',
+  }),
+  user:z.any().refine((val) => {
+    return mongoose.Types.ObjectId.isValid(val)
   }),
   name: studentNameSchema,
   gender: z.enum(['male', 'female']),
@@ -40,8 +44,7 @@ const studentValidationSchema = z.object({
   guardian: guardianSchema,
   localGuardian: localGuardianSchema,
   profileImg: z.string().optional(),
-  isActive: z.enum(['active', 'blocked']).default('active'),
+  isDeleted: z.boolean().default(false),
 });
 
-
-export default studentValidationSchema
+export default studentValidationSchema;

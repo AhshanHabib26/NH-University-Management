@@ -18,7 +18,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // APP API Call
-// app.use("/api/v1/students", studentRouter)
+app.use("/api/v1/students", studentRouter)
 app.use('/api/v1/users', userRouter);
 
 
